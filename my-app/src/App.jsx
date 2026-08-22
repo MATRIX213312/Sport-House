@@ -1,13 +1,44 @@
-import AboutPage from './AboutPage'
-import Diyor from './Components/Diyor'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { CartProvider } from './contexts/CartContext';
+import { FavoritesProvider } from './contexts/FavoritesContext';
+import { AuthProvider } from './contexts/AuthContext';
+import { LanguageProvider } from './contexts/LanguageContext';
+import Header from './components/Header';
+import Cart from './pages/Cart';
+import Favorites from './pages/Favorites';
+import Checkout from './pages/Checkout';
+import LoginRegister from './pages/LoginRegister';
+import Profile from './pages/Profile';
+import HomePage from './pages/HomePage';
 
 const App = () => {
   return (
-    <div>
-      <AboutPage />
-      <Diyor />
-    </div>
-  )
-}
+    <AuthProvider>
+      <LanguageProvider>
+      <CartProvider>
+        <FavoritesProvider>
+          <Router>
+            <div className="min-h-screen bg-black text-white">
+              <Header />
+              <main>
+                <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/cart" element={<Cart />} />
+                  <Route path="/favorites" element={<Favorites />} />
+                  <Route path="/checkout" element={<Checkout />} />
+                  <Route path="/login" element={<LoginRegister />} />
+                  <Route path="/profile" element={<Profile />} />
+                </Routes>
+              </main>
+            </div>
+          </Router>
+        </FavoritesProvider>
+      </CartProvider>
+      </LanguageProvider>
+    </AuthProvider>
+  );
+};
 
-export default App
+
+
+export default App;
