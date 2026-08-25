@@ -10,6 +10,8 @@ import Checkout from './pages/Checkout';
 import LoginRegister from './pages/LoginRegister';
 import Profile from './pages/Profile';
 import HomePage from './pages/HomePage';
+import ProductDetail from './pages/ProductDetail';
+import AboutPage from './AboutPage';
 
 const App = () => {
   return (
@@ -23,6 +25,8 @@ const App = () => {
               <main>
                 <Routes>
                   <Route path="/" element={<HomePage />} />
+                  <Route path="/product/:id" element={<ProductDetail />} />
+                  <Route path="/about" element={<AboutPage />} />
                   <Route path="/cart" element={<Cart />} />
                   <Route path="/favorites" element={<Favorites />} />
                   <Route path="/checkout" element={<Checkout />} />
