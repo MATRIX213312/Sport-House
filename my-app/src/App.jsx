@@ -4,6 +4,7 @@ import { FavoritesProvider } from './contexts/FavoritesContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { LanguageProvider } from './contexts/LanguageContext';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import Cart from './pages/Cart';
 import Favorites from './pages/Favorites';
 import Checkout from './pages/Checkout';
@@ -20,9 +21,9 @@ const App = () => {
       <CartProvider>
         <FavoritesProvider>
           <Router>
-            <div className="min-h-screen bg-black text-white">
+            <div className="min-h-screen bg-black text-white flex flex-col">
               <Header />
-              <main>
+              <main className="flex-1">
                 <Routes>
                   <Route path="/" element={<HomePage />} />
                   <Route path="/product/:id" element={<ProductDetail />} />
@@ -34,6 +35,7 @@ const App = () => {
                   <Route path="/profile" element={<Profile />} />
                 </Routes>
               </main>
+              <Footer />
             </div>
           </Router>
         </FavoritesProvider>
