@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
+import { formatPrice } from '../utils/currency';
 
 const Checkout = () => {
   const { cartItems, getTotalPrice, clearCart } = useCart();
   const { user } = useAuth();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const navigate = useNavigate();
 
   const [step, setStep] = useState(1);
@@ -157,9 +158,9 @@ const Checkout = () => {
                   <h3 className="text-lg font-bold text-white mb-4">{t('deliveryMethod')}</h3>
                   <div className="space-y-3">
                     {[
-                      { id: 'delivery', label: t('courier'), desc: `${t('free')}, 1-3 ${t('delivery') === 'Доставка' ? 'дня' : 'days'}`, price: t('free') },
+                      { id: 'delivery', label: t('courier'), desc: t('courierDesc'), price: t('free') },
                       { id: 'pickup', label: t('pickup'), desc: t('pickupDesc'), price: t('free') },
-                      { id: 'express', label: t('express'), desc: t('expressDesc'), price: '500 ₽' },
+                      { id: 'express', label: t('express'), desc: t('expressDesc'), price: formatPrice(500, language) },
                     ].map((option) => (
                       <label
                         key={option.id}
@@ -315,7 +316,7 @@ const Checkout = () => {
                           {item.name} × {item.quantity}
                         </span>
                         <span className="text-white font-medium">
-                          {(item.price * item.quantity).toLocaleString()} ₽
+                          {formatPrice(item.price * item.quantity, language)}
                         </span>
                       </div>
                     ))}
@@ -325,7 +326,7 @@ const Checkout = () => {
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-400">{t('delivery')}</span>
                       <span className="text-green-500">
-                        {deliveryMethod === 'express' ? '500 ₽' : t('free')}
+                        {deliveryMethod === 'express' ? formatPrice(500, language) : t('free')}
                       </span>
                     </div>
                     <div className="flex justify-between text-sm">
@@ -406,7 +407,7 @@ const Checkout = () => {
               <div className="flex justify-between pt-2 border-t border-gray-700">
                 <span className="text-lg font-bold text-white">{t('total')}</span>
                 <span className="text-xl font-bold text-green-500">
-                  {(getTotalPrice() + (deliveryMethod === 'express' ? 500 : 0)).toLocaleString()} ₽
+                  {formatPrice(getTotalPrice() + (deliveryMethod === 'express' ? 500 : 0), language)}
                 </span>
               </div>
             </div>

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
+import { formatPrice } from '../utils/currency';
 
 const formatUzbekPhone = (value) => {
   const digits = value.replace(/\D/g, '').replace(/^998/, '').slice(0, 9);
@@ -266,13 +267,13 @@ const Profile = () => {
                             <span className="text-gray-300">
                               {item.name} × {item.quantity}
                             </span>
-                            <span className="text-white">{item.price.toLocaleString()} ₽</span>
+                            <span className="text-white">{formatPrice(item.price, language)}</span>
                           </div>
                         ))}
                       </div>
                       <div className="flex items-center justify-between pt-3 border-t border-gray-700">
                         <span className="text-gray-400 text-sm">{t('orderTotal')}</span>
-                        <span className="text-green-500 font-bold">{order.total.toLocaleString()} ₽</span>
+                        <span className="text-green-500 font-bold">{formatPrice(order.total, language)}</span>
                       </div>
                     </div>
                   ))}

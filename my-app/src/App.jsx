@@ -3,6 +3,7 @@ import { CartProvider } from './contexts/CartContext';
 import { FavoritesProvider } from './contexts/FavoritesContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { LanguageProvider } from './contexts/LanguageContext';
+import { LanguageProvider as LegacyLanguageProvider } from './LanguageContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Cart from './pages/Cart';
@@ -18,6 +19,7 @@ const App = () => {
   return (
     <AuthProvider>
       <LanguageProvider>
+      <LegacyLanguageProvider>
       <CartProvider>
         <FavoritesProvider>
           <Router>
@@ -40,6 +42,7 @@ const App = () => {
           </Router>
         </FavoritesProvider>
       </CartProvider>
+      </LegacyLanguageProvider>
       </LanguageProvider>
     </AuthProvider>
   );

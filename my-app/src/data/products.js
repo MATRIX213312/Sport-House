@@ -99,3 +99,11 @@ export const sampleProducts = [
 ];
 
 export const categories = ['Все', 'Кроссовки', 'Одежда', 'Аксессуары'];
+
+// Maps each category value (stored in Russian, matching product.category) to its translation key
+export const categoryKeys = {
+  Все: 'all',
+  Кроссовки: 'sneakers',
+  Одежда: 'clothing',
+  Аксессуары: 'accessories',
+};

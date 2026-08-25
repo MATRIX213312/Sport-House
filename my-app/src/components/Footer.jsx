@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
-import { categories } from '../data/products';
+import { categories, categoryKeys } from '../data/products';
 
 const Footer = () => {
   const { t } = useLanguage();
@@ -36,7 +36,7 @@ const Footer = () => {
           <ul className="space-y-2 text-sm text-zinc-400">
             {categories.filter((c) => c !== 'Все').map((cat) => (
               <li key={cat}>
-                <Link to="/#catalog" className="hover:text-green-500 transition-colors">{cat}</Link>
+                <Link to="/#catalog" className="hover:text-green-500 transition-colors">{t(categoryKeys[cat])}</Link>
               </li>
             ))}
           </ul>

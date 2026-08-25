@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, useCallback } from 'react'
+import { createContext, useContext, useCallback, useState } from 'react'
+import { useLanguage as useSiteLanguage } from './contexts/LanguageContext'
 import translations from './i18n'
 
 const LanguageContext = createContext()
@@ -12,21 +13,11 @@ const LANGUAGES = [
   { code: 'uz', label: "O'zbek", flag: '🇺🇿' },
 ]
 
+// Derives from the site-wide language selector (contexts/LanguageContext) so this
+// page's text always matches whatever language is chosen in the header, instead of
+// tracking its own separate state.
 export const LanguageProvider = ({ children }) => {
-  const [lang, setLang] = useState(() => {
-    try {
-      return localStorage.getItem('sportmarket-lang') || 'ru'
-    } catch {
-      return 'ru'
-    }
-  })
-
-  const setLanguage = useCallback((newLang) => {
-    setLang(newLang)
-    try {
-      localStorage.setItem('sportmarket-lang', newLang)
-    } catch { /* ignore */ }
-  }, [])
+  const { language: lang, setLanguage } = useSiteLanguage()
 
   const t = useCallback(
     (key) => {

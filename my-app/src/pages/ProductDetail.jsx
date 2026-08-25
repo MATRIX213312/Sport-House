@@ -4,13 +4,14 @@ import { useCart } from '../contexts/CartContext';
 import { useFavorites } from '../contexts/FavoritesContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { sampleProducts } from '../data/products';
+import { formatPrice } from '../utils/currency';
 
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { addToCart } = useCart();
   const { toggleFavorite, isFavorite } = useFavorites();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [selectedSize, setSelectedSize] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState('description');
@@ -116,7 +117,7 @@ const ProductDetail = () => {
           </div>
 
           <p className="text-3xl font-bold text-green-500 mb-6">
-            {product.price.toLocaleString()} ₽
+            {formatPrice(product.price, language)}
           </p>
 
           <p className="text-gray-300 leading-relaxed mb-8">{product.description}</p>
@@ -283,7 +284,7 @@ const ProductDetail = () => {
               {[
                 { icon: '🚚', title: t('courier'), desc: t('courierDesc'), price: t('free') },
                 { icon: '📦', title: t('pickup'), desc: t('pickupDesc'), price: t('free') },
-                { icon: '⚡', title: t('express'), desc: t('expressDesc'), price: '500 ₽' },
+                { icon: '⚡', title: t('express'), desc: t('expressDesc'), price: formatPrice(500, language) },
               ].map((option) => (
                 <div key={option.title} className="flex items-center justify-between p-4 bg-gray-800 rounded-lg">
                   <div className="flex items-center gap-4">
@@ -321,7 +322,7 @@ const ProductDetail = () => {
                 </div>
                 <div className="p-4">
                   <h3 className="text-white font-semibold mb-1 truncate">{p.name}</h3>
-                  <span className="text-green-500 font-bold">{p.price.toLocaleString()} ₽</span>
+                  <span className="text-green-500 font-bold">{formatPrice(p.price, language)}</span>
                 </div>
               </Link>
             ))}

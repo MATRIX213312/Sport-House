@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 import { useCart } from '../contexts/CartContext';
 import { useLanguage } from '../contexts/LanguageContext';
+import { formatPrice } from '../utils/currency';
 
 const Cart = () => {
   const { cartItems, removeFromCart, updateQuantity, getTotalPrice, clearCart } = useCart();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   if (cartItems.length === 0) {
     return (
@@ -60,7 +61,7 @@ const Cart = () => {
             {/* Info */}
             <div className="flex-1 min-w-0">
               <h3 className="text-white font-semibold truncate">{item.name}</h3>
-              <p className="text-green-500 font-bold">{item.price.toLocaleString()} ₽</p>
+              <p className="text-green-500 font-bold">{formatPrice(item.price, language)}</p>
               {item.size && <p className="text-gray-400 text-sm">{t('size')}: {item.size}</p>}
             </div>
 
@@ -84,7 +85,7 @@ const Cart = () => {
             {/* Total & Remove */}
             <div className="text-right">
               <p className="text-white font-bold mb-1">
-                {(item.price * item.quantity).toLocaleString()} ₽
+                {formatPrice(item.price * item.quantity, language)}
               </p>
               <button
                 onClick={() => removeFromCart(item.id)}
@@ -105,7 +106,7 @@ const Cart = () => {
         </div>
         <div className="flex items-center justify-between mb-6 pt-4 border-t border-gray-800">
           <span className="text-xl font-bold text-white">{t('total')}</span>
-          <span className="text-2xl font-bold text-green-500">{getTotalPrice().toLocaleString()} ₽</span>
+          <span className="text-2xl font-bold text-green-500">{formatPrice(getTotalPrice(), language)}</span>
         </div>
         <Link
           to="/checkout"

@@ -4,7 +4,8 @@ import { motion } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCart } from '../contexts/CartContext';
 import { useFavorites } from '../contexts/FavoritesContext';
-import { sampleProducts, categories } from '../data/products';
+import { sampleProducts, categories, categoryKeys } from '../data/products';
+import { formatPrice } from '../utils/currency';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -12,7 +13,7 @@ const fadeUp = {
 };
 
 const HomePage = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { addToCart } = useCart();
   const { toggleFavorite, isFavorite } = useFavorites();
   const [activeCategory, setActiveCategory] = useState('Все');
@@ -114,7 +115,7 @@ const HomePage = () => {
                     : 'bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white'
                 }`}
               >
-                {cat}
+                {t(categoryKeys[cat])}
               </button>
             ))}
           </div>
@@ -171,7 +172,7 @@ const HomePage = () => {
                   ))}
                 </div>
                 <div className="flex items-center justify-between mt-2">
-                  <span className="text-green-500 font-bold">{product.price.toLocaleString()} ₽</span>
+                  <span className="text-green-500 font-bold">{formatPrice(product.price, language)}</span>
                   <button
                     onClick={() => addToCart(product)}
                     className="px-3 py-1.5 bg-green-500 text-black text-sm font-semibold rounded-lg hover:bg-green-400 transition-colors"

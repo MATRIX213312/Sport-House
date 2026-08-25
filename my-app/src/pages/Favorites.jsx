@@ -2,11 +2,12 @@ import { Link } from 'react-router-dom';
 import { useFavorites } from '../contexts/FavoritesContext';
 import { useCart } from '../contexts/CartContext';
 import { useLanguage } from '../contexts/LanguageContext';
+import { formatPrice } from '../utils/currency';
 
 const Favorites = () => {
   const { favorites, toggleFavorite } = useFavorites();
   const { addToCart } = useCart();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   if (favorites.length === 0) {
     return (
@@ -59,7 +60,7 @@ const Favorites = () => {
             {/* Info */}
             <div className="p-4">
               <h3 className="text-white font-semibold mb-1 truncate">{item.name}</h3>
-              <p className="text-green-500 font-bold text-lg mb-3">{item.price.toLocaleString()} ₽</p>
+              <p className="text-green-500 font-bold text-lg mb-3">{formatPrice(item.price, language)}</p>
               <button
                 onClick={(e) => { e.preventDefault(); e.stopPropagation(); addToCart(item); }}
                 className="w-full py-2 bg-green-500 text-black font-semibold rounded-lg hover:bg-green-400 transition-colors z-10"
