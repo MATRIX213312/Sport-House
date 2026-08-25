@@ -36,6 +36,7 @@ const Header = () => {
 
   const navLinks = [
     { to: '/', label: t('home') },
+    { to: '/about', label: t('about') },
     { to: '/favorites', label: t('favorites') },
     { to: '/cart', label: t('cart') },
   ];

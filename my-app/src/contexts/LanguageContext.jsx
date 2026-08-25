@@ -8,6 +8,7 @@ const translations = {
   ru: {
     // Header
     home: 'Главная',
+    about: 'О нас',
     favorites: 'Избранное',
     cart: 'Корзина',
     login: 'Войти',
@@ -165,6 +166,7 @@ const translations = {
   en: {
     // Header
     home: 'Home',
+    about: 'About',
     favorites: 'Favorites',
     cart: 'Cart',
     login: 'Sign In',
@@ -322,6 +324,7 @@ const translations = {
   uz: {
     // Header
     home: 'Bosh sahifa',
+    about: 'Biz haqimizda',
     favorites: 'Tanlanganlar',
     cart: 'Savat',
     login: 'Kirish',
